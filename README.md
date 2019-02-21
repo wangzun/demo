@@ -1,2 +1,2 @@
 # demo
-go moblie demo
+go moblie game demo
