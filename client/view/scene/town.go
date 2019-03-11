@@ -6,7 +6,7 @@ import (
 )
 
 func init() {
-	app.ViewList["town"] = &Town{}
+	// app.ViewList["town"] = &Town{}
 }
 
 type Town struct {

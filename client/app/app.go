@@ -31,7 +31,7 @@ func (app *App) Start() {
 	app.Scene().Add(pointLight)
 	grid := graphic.NewGridHelper(100, 1, &math32.Color{0.4, 0.4, 0.4})
 	a.Scene().Add(grid)
-	// fmt.Println(ViewList)
+	// // fmt.Println(ViewList)
 	app.InitView()
 	app.Subscribe(application.OnBeforeRender, func(evname string, ev interface{}) {
 		app.Render()
