@@ -1,6 +1,7 @@
 package app
 
 import (
+	"github.com/wangzun/demo/logic"
 	"github.com/wangzun/gogame/engine/graphic"
 	"github.com/wangzun/gogame/engine/gui"
 	"github.com/wangzun/gogame/engine/light"
@@ -22,6 +23,7 @@ type App struct {
 }
 
 func (app *App) Start() {
+	app.InitData()
 	a, _ := application.Create(application.Options{Control: true})
 	app.Application = a
 	ambientLight := light.NewAmbient(&math32.Color{1.0, 1.0, 1.0}, 0.8)
@@ -34,11 +36,31 @@ func (app *App) Start() {
 	// // fmt.Println(ViewList)
 	app.InitView()
 	app.Subscribe(application.OnBeforeRender, func(evname string, ev interface{}) {
+		logic.Loop(app.FrameDeltaSeconds())
 		app.Render()
 	})
 	app.CameraPersp().SetPosition(0, 0, 3)
 	app.CameraPersp().LookAt(&math32.Vector3{0, 0, 0})
 	app.Run()
+}
+
+func (app *App) InitData() {
+	app.InitMap()
+	app.InitRole()
+}
+
+func (app *App) InitMap() {
+	logic.NewMap()
+}
+
+func (app *App) InitRole() {
+	logic.NewRole()
+	logic.NewRole()
+	logic.NewRole()
+	logic.NewRole()
+	logic.NewRole()
+	logic.NewRole()
+	logic.NewRole()
 }
 
 func (app *App) InitView() {

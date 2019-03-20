@@ -1,11 +1,18 @@
 package common
 
+import (
+	"math/rand"
+	"time"
+)
+
 var MaxRoleId int
 var MaxMapId int
+var r *rand.Rand
 
 func init() {
 	MaxRoleId = 100000000
 	MaxMapId = 100
+	r = rand.New(rand.NewSource(time.Now().Unix()))
 }
 
 func GetNowMapId() int {
@@ -30,4 +37,8 @@ func GenMapID() int {
 	newId := MaxMapId
 	MaxMapId++
 	return newId
+}
+
+func GetRandomNum(Num int) int {
+	return r.Intn(Num)
 }

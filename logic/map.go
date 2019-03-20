@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/wangzun/demo/common"
+	"github.com/wangzun/gogame/engine/math32"
 )
 
 const MaxX = 100
@@ -30,6 +31,12 @@ func NewMap() *Map {
 	map_data := &Map{Id: Id}
 	maps[Id] = map_data
 	return map_data
+}
+
+func GetNorPos(x, y float32) *math32.Vector3 {
+	norX := x - MaxX/2
+	norY := y - MaxY/2
+	return &math32.Vector3{X: norX, Z: norY}
 }
 
 func GetCenterPos(Id int) (*PosData, error) {
