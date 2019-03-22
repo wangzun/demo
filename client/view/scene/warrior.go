@@ -8,6 +8,7 @@ import (
 	"github.com/wangzun/gogame/engine/animation"
 	"github.com/wangzun/gogame/engine/core"
 	"github.com/wangzun/gogame/engine/loader/gltf"
+	"github.com/wangzun/gogame/engine/math32"
 )
 
 func init() {
@@ -79,8 +80,20 @@ func (t *Warrior) Render(app *app.App) {
 			v.anims[2].Update(app.FrameDeltaSeconds())
 		}
 	}
-	// t.anims[4].Update(app.FrameDeltaSeconds())
-	// for _, anim := range t.anims {
-	// 	anim.Update(app.FrameDeltaSeconds())
-	// }
+	roleInfo := roleList[app.RoleId]
+	var quat math32.Quaternion
+	roleInfo.Node.WorldQuaternion(&quat)
+	// direction := math32.Vector3{1, 0, 0}
+	direction := math32.Vector3{0, 0, 1}
+	direction.ApplyQuaternion(&quat)
+	direction.Normalize()
+	direction.MultiplyScalar(10)
+	direction.Sub(&math32.Vector3{0, 3, 0})
+	direction.Negate()
+	// Get tank world position
+	var position math32.Vector3
+	roleInfo.Node.WorldPosition(&position)
+	app.CameraPersp().LookAt(&math32.Vector3{position.X, position.Y, position.Z})
+	position.Add(&direction)
+	app.CameraPersp().SetPosition(position.X, position.Y, position.Z)
 }

@@ -20,6 +20,7 @@ type App struct {
 	*application.Application            // Embedded standard application object
 	DirData                  string     // full path of data directory
 	labelFPS                 *gui.Label // header FPS label
+	RoleId                   int
 }
 
 func (app *App) Start() {
@@ -47,6 +48,15 @@ func (app *App) Start() {
 func (app *App) InitData() {
 	app.InitMap()
 	app.InitRole()
+	app.InitRoleCamera()
+}
+
+func (app *App) InitRoleCamera() {
+	roleList := logic.GetRoleList()
+	for k, _ := range roleList {
+		app.RoleId = k
+		break
+	}
 }
 
 func (app *App) InitMap() {

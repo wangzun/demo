@@ -102,7 +102,7 @@ func NewRole() *Role {
 	name := common.GetFullName()
 	role := &Role{Id: Id, Name: name}
 	role.velocity = 0.9
-	role.rotvel = 0.8
+	role.rotvel = 0.2
 	role.Model = "cowboy"
 	role.MapId = common.GetNowMapId()
 	pos_list := GetMapEmptyPos(role.MapId)
@@ -137,6 +137,8 @@ func RoleInfo(Id int) (*Role, error) {
 
 func roleLoop() {
 	for _, t := range role_list {
+		t.Up()
+		t.Right()
 
 		if t.commands[CMD_LEFT] || t.commands[CMD_RIGHT] {
 			// Calculates angle delta to rotate
